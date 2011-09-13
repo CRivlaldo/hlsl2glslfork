@@ -338,15 +338,25 @@ TIntermTyped* TIntermediate::addUnaryMath(TOperator op, TIntermNode* childNode, 
    case EOpConstructInt:   newType = EbtInt;   break;
    case EOpConstructBool:  newType = EbtBool;  break;
    case EOpConstructFloat: newType = EbtFloat; break;
+   case EOpConstructStruct: newType = EbtStruct; break;
    default: break;
+   }
+
+   TType ttype;
+   if(op != EOpConstructStruct)
+   {
+	   ttype = TType(newType, child->getPrecision(), EvqTemporary, child->getNominalSize(), 
+                                      child->isMatrix(), 
+                                      child->isArray());
+   }
+   else
+   {
+	   ttype = TType(child->getType().getStruct(), child->getType().getTypeName(), child->getType().getPrecision());
    }
 
    if (newType != EbtVoid)
    {
-      child = addConversion(op, TType(newType, child->getPrecision(), EvqTemporary, child->getNominalSize(), 
-                                      child->isMatrix(), 
-                                      child->isArray()),
-                            child);
+      child = addConversion(op, ttype, child);
       if (child == 0)
          return 0;
    }
@@ -359,6 +369,7 @@ TIntermTyped* TIntermediate::addUnaryMath(TOperator op, TIntermNode* childNode, 
    case EOpConstructInt:
    case EOpConstructBool:
    case EOpConstructFloat:
+   case EOpConstructStruct:
       return child;
    default: break;
    }
