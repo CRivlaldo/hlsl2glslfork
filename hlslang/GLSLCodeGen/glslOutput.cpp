@@ -1055,7 +1055,8 @@ bool TGlslOutputTraverser::traverseAggregate( bool preVisit, TIntermAggregate *n
    case EOpConstructMat2:  writeFuncCall( "mat2", node, goit); return false;
    case EOpConstructMat3:  writeFuncCall( "mat3", node, goit); return false;
    case EOpConstructMat4:  writeFuncCall( "mat4", node, goit); return false;
-   case EOpConstructStruct:  writeFuncCall( "struct", node, goit); return false;
+   case EOpConstructStruct:  writeFuncCall( 
+		node->getType().getTypeName(), node, goit); return false;
 
 
    case EOpConstructMat2FromMat:
