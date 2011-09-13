@@ -1688,6 +1688,10 @@ TIntermTyped* TParseContext::constructBuiltIn(const TType* type, TOperator op, T
    case EOpConstructBool:
       basicOp = EOpConstructBool;
       break;
+	  
+   case EOpConstructStruct:
+	   basicOp = EOpConstructStruct;
+	   break;
 
    default:
       error(line, "unsupported construction", "", "");
