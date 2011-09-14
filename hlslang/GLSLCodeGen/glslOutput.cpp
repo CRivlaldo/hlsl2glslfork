@@ -464,12 +464,10 @@ bool TGlslOutputTraverser::traverseBinary( bool preVisit, TIntermBinary *node, T
 
 		 if (left->isMatrix() && !left->isArray())
 		 {
-			 current->addLibFunction (EOpMatrixIndex);
-			 out << "xll_matrixindex (";
 			 left->traverse(goit);
-			 out << ", ";
+			 out << "[";
 			 right->traverse(goit);
-			 out << ")";
+			 out << "]";
 			 return false;
 		 }
 
