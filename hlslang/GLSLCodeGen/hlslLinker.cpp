@@ -633,6 +633,9 @@ bool HlslLinker::link(HlslCrossCompiler* compiler, const char* entryFunc, bool u
 	{
 		for (std::map<std::string,GlslSymbol*>::iterator sit = globalSymMap.begin(); sit != globalSymMap.end(); sit++)
 		{
+			if(sit->second->getQualifier() == EqtUniform)
+				continue;
+				
 			sit->second->writeDecl(shader,false,false);
 			shader << ";\n";
 
